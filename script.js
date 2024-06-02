@@ -1,3 +1,6 @@
+const emptyValue = '';
+const defaultValue = '0';
+
 function add(previousNumber, currentNumber) {
   return parseInt(previousNumber) + parseInt(currentNumber);
 }
@@ -14,10 +17,10 @@ function divide(previousNumber, currentNumber) {
   return parseInt(previousNumber) * parseInt(currentNumber);
 }
 
-let previousNumber = '';
-let currentNumber = '';
+let previousNumber = emptyValue;
+let currentNumber = emptyValue;
 
-let currentOperator = '';
+let currentOperator = emptyValue;
 
 function operate(currentOperator, previousNumber, currentNumber) {
   switch (currentOperator) {
@@ -64,11 +67,11 @@ numberKeys.forEach(button => {
 const allClear = document.querySelector('#function-keys #all-clear');
 
 allClear.addEventListener('click', () => {
-  previousNumber = '';
-  currentNumber = '0';
-  currentOperator = '';
+  previousNumber = emptyValue;
+  currentNumber = defaultValue;
+  currentOperator = emptyValue;
 
   updateDisplay();
 
-  currentNumber = '';
+  currentNumber = emptyValue;
 })
