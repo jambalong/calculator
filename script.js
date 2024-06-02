@@ -1,20 +1,37 @@
 const emptyValue = '';
 const defaultValue = '0';
+const decimalPoint = '.';
 
 function add(previousNumber, currentNumber) {
-  return parseFloat(previousNumber) + parseFloat(currentNumber);
+  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
+    return parseFloat(previousNumber) + parseFloat(currentNumber);
+  }
+
+  return parseInt(previousNumber) + parseInt(currentNumber);
 }
 
 function subtract(previousNumber, currentNumber) {
-  return parseFloat(previousNumber) - parseFloat(currentNumber);
+  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
+    return parseFloat(previousNumber) - parseFloat(currentNumber);
+  }
+
+  return parseInt(previousNumber) - parseInt(currentNumber);
 }
 
 function multiply(previousNumber, currentNumber) {
-  return parseFloat(previousNumber) * parseFloat(currentNumber);
+  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
+    return parseFloat(previousNumber) * parseFloat(currentNumber);
+  }
+
+  return parseInt(previousNumber) * parseInt(currentNumber);
 }
 
 function divide(previousNumber, currentNumber) {
-  return parseFloat(previousNumber) / parseFloat(currentNumber);
+  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
+    return parseFloat(previousNumber) / parseFloat(currentNumber);
+  }
+
+  return parseInt(previousNumber) / parseInt(currentNumber);
 }
 
 
@@ -51,7 +68,6 @@ function updateDisplay() {
 
 function handleNumberClick(event) {
   const clickedNumber = event.target.textContent;
-  const decimalPoint = '.';
 
   if (previousEvaluation == true) {
     currentNumber = emptyValue;
@@ -96,16 +112,32 @@ function handleOperatorClick(event) {
   }
 }
 
+/*
+This function first checks if the argument is a number (Number(number) === number) to exclude
+non-numeric values. Then, it checks if the number is not an integer (number % 1 !== 0),
+indicating that it has a fractional part.
+*/
+
+function isFloat(number) {
+  return Number(number) === number && number % 1 !== 0;
+}
+
 function handleEqualsOperator(clickedOperator) {
   if (previousNumber.length == 0) {
     return;
   }
 
   const currentEvaluation = operate(currentOperator, previousNumber, currentNumber);
-
+  
   currentOperator = emptyValue;
   previousNumber = emptyValue;
-  currentNumber = currentEvaluation.toFixed(2);
+
+  if (isFloat(currentEvaluation)) {
+    currentNumber = currentEvaluation.toFixed(2);
+  } else {
+    currentNumber = currentEvaluation;
+  }
+  
   updateDisplay();
 }
 
