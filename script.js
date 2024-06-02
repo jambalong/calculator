@@ -120,7 +120,7 @@ function handleEqualsOperator(clickedOperator) {
   if (isFloat(currentEvaluation)) {
     currentNumber = currentEvaluation.toFixed(2);
   } else {
-    currentNumber = currentEvaluation;
+    currentNumber = currentEvaluation.toFixed(0);
   }
   
   updateDisplay();
