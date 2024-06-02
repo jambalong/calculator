@@ -45,6 +45,12 @@ function updateDisplay() {
 
 function handleNumberClick(event) {
   const clickedNumber = event.target.textContent;
+  const decimalPoint = '.';
+
+  if (clickedNumber == decimalPoint && currentNumber.includes(decimalPoint)) {
+    return;
+  }
+
   currentNumber += clickedNumber;
   updateDisplay();
 }
