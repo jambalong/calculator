@@ -138,8 +138,45 @@ function handleNonEqualsOperator(clickedOperator) {
   updateDisplay();
 }
 
+function handleFunctionKeys(event) {
+  const clickedFunction = event.target.textContent;
+
+  switch (clickedFunction) {
+    case 'AC':
+      handleAllClear();
+      break;
+    case '+/-':
+      handleSign();
+      break;
+    case '%':
+      handlePercent();
+      break;
+  }
+}
+
+function handleAllClear() {
+  previousNumber = emptyValue;
+  currentNumber = defaultValue;
+  currentOperator = emptyValue;
+
+  updateDisplay();
+
+  currentNumber = emptyValue;
+}
+
+function handleSign() {
+  currentNumber = (currentNumber * -1).toString();
+  updateDisplay();
+}
+
+function handlePercent() {
+  currentNumber = (currentNumber / 100).toString();
+  updateDisplay();
+}
+
 const numberKeys = document.querySelectorAll('#number-keys button');
 const operatorKeys = document.querySelectorAll('#operator-keys button');
+const functionKeys = document.querySelectorAll('#function-keys button');
 
 numberKeys.forEach(button => {
   button.addEventListener('click', handleNumberClick);
@@ -149,14 +186,6 @@ operatorKeys.forEach(button => {
   button.addEventListener('click', handleOperatorClick);
 })
 
-const allClear = document.querySelector('#function-keys #all-clear');
-
-allClear.addEventListener('click', () => {
-  previousNumber = emptyValue;
-  currentNumber = defaultValue;
-  currentOperator = emptyValue;
-
-  updateDisplay();
-
-  currentNumber = emptyValue;
+functionKeys.forEach(button => {
+  button.addEventListener('click', handleFunctionKeys);
 })
