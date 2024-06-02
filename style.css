@@ -1,4 +1,99 @@
 * {
   margin: 0;
   padding: 0;
+  font-family: "Digital-7", sans-serif;
+}
+
+body {
+  display: flex;
+  padding: 32px 12px;
+  background-color: #F4F1DE;
+}
+
+#main-container {
+  display: flex;
+  margin: auto;
+  height: 600px;
+  width: 400px;
+  border: 12px solid #3D405B;
+  border-radius: 6px;
+}
+
+#calculator-body {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  border: 1px solid black;
+}
+
+#display {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  background-color: grey;
+  color: white;
+  font-size: 64px;
+  height: calc(600px / 6);
+  padding-right: 12px;
+  border: 2px solid black;
+}
+
+#keypad {
+  display: flex;
+  flex: 1;
+  background-color: black;
+}
+
+#left-keys {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+#right-keys {
+  display: flex;
+  flex: 1;
+}
+
+#function-keys {
+  display: flex;
+  flex: 1;
+}
+
+#function-keys button {
+  background-color: #F2CC8F;
+}
+
+#operator-keys {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+#operator-keys button {
+  background-color: #e07b5f;
+}
+
+#number-keys {
+  display: flex;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+#number-keys button {
+  background-color: #81B29A;
+  flex-shrink: 0;
+}
+
+#zero {
+  min-width: 200px;
+}
+
+button {
+  min-width: 100px;
+  min-height: 100px;
+  flex: 1;
+  font-size: 36px;
+  color: white;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
 }
