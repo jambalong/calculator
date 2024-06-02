@@ -42,3 +42,15 @@ function updateDisplay() {
 
   display.textContent = displayValue;
 }
+
+function handleNumberClick(event) {
+  const clickedNumber = event.target.textContent;
+  currentNumber += clickedNumber;
+  updateDisplay();
+}
+
+const numberKeys = document.querySelectorAll('#number-keys button');
+
+numberKeys.forEach(button => {
+  button.addEventListener('click', handleNumberClick);
+});
