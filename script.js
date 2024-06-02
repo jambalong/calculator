@@ -14,13 +14,15 @@ function multiply(previousNumber, currentNumber) {
 }
 
 function divide(previousNumber, currentNumber) {
-  return parseInt(previousNumber) * parseInt(currentNumber);
+  return parseInt(previousNumber) / parseInt(currentNumber);
 }
+
+
+let currentOperator = emptyValue;
 
 let previousNumber = emptyValue;
 let currentNumber = emptyValue;
 
-let currentOperator = emptyValue;
 
 function operate(currentOperator, previousNumber, currentNumber) {
   switch (currentOperator) {
