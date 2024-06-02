@@ -176,7 +176,35 @@ function handlePercent() {
   updateDisplay();
 }
 
-function initializeNumbers(flag) {
+function handleClearEntry() {
+  let currentEntry = currentNumber;
+  const isPositive = currentEntry > 0;
+  const isNegative = currentEntry < 0;
+
+  previousEvaluation = false;
+
+  if (isPositive) {
+    currentEntry = currentEntry.substring(0, currentEntry.length - 1);
+  } else if (isNegative) {
+    currentEntry = currentEntry.substring(0, currentEntry.length - 1);
+  }
+
+  const isInvalid = currentEntry == '-';
+
+  if (currentEntry == emptyValue || isInvalid) {
+    currentEntry = zeroValue;
+  }
+
+  currentNumber = currentEntry;
+
+  updateDisplay();
+
+  if (currentNumber == zeroValue) {
+    currentNumber = emptyValue;
+  }
+}
+
+function initializeNumbers() {
   currentOperator = emptyValue;
   previousNumber = emptyValue;
   currentNumber = emptyValue;
@@ -187,6 +215,7 @@ initializeNumbers();
 const numberKeys = document.querySelectorAll('#number-keys button');
 const operatorKeys = document.querySelectorAll('#operator-keys button');
 const functionKeys = document.querySelectorAll('#function-keys button');
+const clearEntry = document.querySelector('#clear-entry');
 
 numberKeys.forEach(button => {
   button.addEventListener('click', handleNumberClick);
@@ -199,3 +228,5 @@ operatorKeys.forEach(button => {
 functionKeys.forEach(button => {
   button.addEventListener('click', handleFunctionKeys);
 })
+
+clearEntry.addEventListener('click', handleClearEntry);
