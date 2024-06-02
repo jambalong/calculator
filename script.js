@@ -2,19 +2,19 @@ const emptyValue = '';
 const defaultValue = '0';
 
 function add(previousNumber, currentNumber) {
-  return parseInt(previousNumber) + parseInt(currentNumber);
+  return parseFloat(previousNumber) + parseFloat(currentNumber);
 }
 
 function subtract(previousNumber, currentNumber) {
-  return parseInt(previousNumber) - parseInt(currentNumber);
+  return parseFloat(previousNumber) - parseFloat(currentNumber);
 }
 
 function multiply(previousNumber, currentNumber) {
-  return parseInt(previousNumber) * parseInt(currentNumber);
+  return parseFloat(previousNumber) * parseFloat(currentNumber);
 }
 
 function divide(previousNumber, currentNumber) {
-  return parseInt(previousNumber) / parseInt(currentNumber);
+  return parseFloat(previousNumber) / parseFloat(currentNumber);
 }
 
 
