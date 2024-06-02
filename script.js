@@ -54,3 +54,15 @@ const numberKeys = document.querySelectorAll('#number-keys button');
 numberKeys.forEach(button => {
   button.addEventListener('click', handleNumberClick);
 });
+
+const allClear = document.querySelector('#function-keys #all-clear');
+
+allClear.addEventListener('click', () => {
+  previousNumber = '';
+  currentNumber = '0';
+  currentOperator = '';
+
+  updateDisplay();
+
+  currentNumber = '';
+})
