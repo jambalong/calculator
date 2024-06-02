@@ -73,13 +73,17 @@ function handleNumberClick(event) {
     currentNumber = emptyValue;
     previousEvaluation = false;
   }
-
-  if (clickedNumber == decimalPoint && currentNumber.includes(decimalPoint)) {
+  
+  if (clickedNumber == decimalPoint && currentNumber == emptyValue) {
+    currentNumber += defaultValue;
+    currentNumber += clickedNumber;
+    updateDisplay();
+  } else if (clickedNumber == decimalPoint && currentNumber.includes(decimalPoint)) {
     return;
+  } else {
+    currentNumber += clickedNumber;
+    updateDisplay();
   }
-
-  currentNumber += clickedNumber;
-  updateDisplay();
 }
 
 const numberKeys = document.querySelectorAll('#number-keys button');
@@ -105,7 +109,6 @@ function handleOperatorClick(event) {
   const equals = '=';
 
   if (clickedOperator == equals) {
-    previousEvaluation = true;
     handleEqualsOperator(clickedOperator);
   } else {
     handleNonEqualsOperator(clickedOperator);
@@ -126,6 +129,8 @@ function handleEqualsOperator(clickedOperator) {
   if (previousNumber.length == 0) {
     return;
   }
+
+  previousEvaluation = true;
 
   const currentEvaluation = operate(currentOperator, previousNumber, currentNumber);
   
