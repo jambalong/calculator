@@ -1,7 +1,7 @@
 * {
   margin: 0;
   padding: 0;
-  font-family: "Digital-7", sans-serif;
+  font-family: sans-serif;
 }
 
 body {
@@ -22,8 +22,8 @@ body {
 #calculator-body {
   display: flex;
   flex-direction: column;
-  flex: 1;
   border: 1px solid black;
+  overflow: hidden; /* Hide overflow content */
 }
 
 #display {
@@ -34,8 +34,10 @@ body {
   color: white;
   font-size: 64px;
   height: calc(600px / 6);
-  padding-right: 12px;
+  padding: 12px;
   border: 2px solid black;
+  white-space: nowrap; /* Prevent line breaks */
+  overflow: hidden; /* Hide overflow content */
 }
 
 #keypad {
