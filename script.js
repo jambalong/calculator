@@ -77,3 +77,45 @@ allClear.addEventListener('click', () => {
 
   currentNumber = emptyValue;
 })
+
+function handleOperatorClick(event) {
+  const clickedOperator = event.target.textContent;
+  const equals = '=';
+
+  if (clickedOperator == equals) {
+    handleEqualsOperator(clickedOperator);
+  } else {
+    handleNonEqualsOperator(clickedOperator);
+  }
+}
+
+function handleEqualsOperator(clickedOperator) {
+  if (previousNumber.length == 0) {
+    return;
+  }
+
+  const currentEvaluation = operate(currentOperator, previousNumber, currentNumber);
+
+  currentOperator = emptyValue;
+  previousNumber = emptyValue;
+  currentNumber = currentEvaluation;
+  updateDisplay();
+}
+
+function handleNonEqualsOperator(clickedOperator) {
+  if (previousNumber.length == 0) {
+    previousNumber = currentNumber;
+    currentNumber = emptyValue;
+  } else if (currentNumber.length > 0) {
+    return;
+  }
+
+  currentOperator = clickedOperator;
+  updateDisplay();
+}
+
+const operatorKeys = document.querySelectorAll('#operator-keys button');
+
+operatorKeys.forEach(button => {
+  button.addEventListener('click', handleOperatorClick);
+})
