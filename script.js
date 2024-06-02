@@ -23,6 +23,7 @@ let currentOperator = emptyValue;
 let previousNumber = emptyValue;
 let currentNumber = emptyValue;
 
+let previousEvaluation = false;
 
 function operate(currentOperator, previousNumber, currentNumber) {
   switch (currentOperator) {
@@ -51,6 +52,11 @@ function updateDisplay() {
 function handleNumberClick(event) {
   const clickedNumber = event.target.textContent;
   const decimalPoint = '.';
+
+  if (previousEvaluation == true) {
+    currentNumber = emptyValue;
+    previousEvaluation = false;
+  }
 
   if (clickedNumber == decimalPoint && currentNumber.includes(decimalPoint)) {
     return;
@@ -83,6 +89,7 @@ function handleOperatorClick(event) {
   const equals = '=';
 
   if (clickedOperator == equals) {
+    previousEvaluation = true;
     handleEqualsOperator(clickedOperator);
   } else {
     handleNonEqualsOperator(clickedOperator);
@@ -98,7 +105,7 @@ function handleEqualsOperator(clickedOperator) {
 
   currentOperator = emptyValue;
   previousNumber = emptyValue;
-  currentNumber = currentEvaluation;
+  currentNumber = currentEvaluation.toFixed(2);
   updateDisplay();
 }
 
