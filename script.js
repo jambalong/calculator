@@ -2,6 +2,22 @@ const emptyValue = '';
 const defaultValue = '0';
 const decimalPoint = '.';
 
+let currentOperator = emptyValue;
+let previousNumber = emptyValue;
+let currentNumber = emptyValue;
+
+let previousEvaluation = false;
+
+/*
+This function first checks if the argument is a number (Number(number) === number) to exclude
+non-numeric values. Then, it checks if the number is not an integer (number % 1 !== 0),
+indicating that it has a fractional part.
+*/
+
+function isFloat(number) {
+  return Number(number) === number && number % 1 !== 0;
+}
+
 function add(previousNumber, currentNumber) {
   if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
     return parseFloat(previousNumber) + parseFloat(currentNumber);
@@ -33,14 +49,6 @@ function divide(previousNumber, currentNumber) {
 
   return parseInt(previousNumber) / parseInt(currentNumber);
 }
-
-
-let currentOperator = emptyValue;
-
-let previousNumber = emptyValue;
-let currentNumber = emptyValue;
-
-let previousEvaluation = false;
 
 function operate(currentOperator, previousNumber, currentNumber) {
   switch (currentOperator) {
@@ -86,24 +94,6 @@ function handleNumberClick(event) {
   }
 }
 
-const numberKeys = document.querySelectorAll('#number-keys button');
-
-numberKeys.forEach(button => {
-  button.addEventListener('click', handleNumberClick);
-});
-
-const allClear = document.querySelector('#function-keys #all-clear');
-
-allClear.addEventListener('click', () => {
-  previousNumber = emptyValue;
-  currentNumber = defaultValue;
-  currentOperator = emptyValue;
-
-  updateDisplay();
-
-  currentNumber = emptyValue;
-})
-
 function handleOperatorClick(event) {
   const clickedOperator = event.target.textContent;
   const equals = '=';
@@ -113,16 +103,6 @@ function handleOperatorClick(event) {
   } else {
     handleNonEqualsOperator(clickedOperator);
   }
-}
-
-/*
-This function first checks if the argument is a number (Number(number) === number) to exclude
-non-numeric values. Then, it checks if the number is not an integer (number % 1 !== 0),
-indicating that it has a fractional part.
-*/
-
-function isFloat(number) {
-  return Number(number) === number && number % 1 !== 0;
 }
 
 function handleEqualsOperator(clickedOperator) {
@@ -158,8 +138,25 @@ function handleNonEqualsOperator(clickedOperator) {
   updateDisplay();
 }
 
+const numberKeys = document.querySelectorAll('#number-keys button');
 const operatorKeys = document.querySelectorAll('#operator-keys button');
+
+numberKeys.forEach(button => {
+  button.addEventListener('click', handleNumberClick);
+});
 
 operatorKeys.forEach(button => {
   button.addEventListener('click', handleOperatorClick);
+})
+
+const allClear = document.querySelector('#function-keys #all-clear');
+
+allClear.addEventListener('click', () => {
+  previousNumber = emptyValue;
+  currentNumber = defaultValue;
+  currentOperator = emptyValue;
+
+  updateDisplay();
+
+  currentNumber = emptyValue;
 })
