@@ -1,17 +1,17 @@
 function add(previousNumber, currentNumber) {
-  return previousNumber + currentNumber;
+  return parseInt(previousNumber) + parseInt(currentNumber);
 }
 
 function subtract(previousNumber, currentNumber) {
-  return previousNumber - currentNumber;
+  return parseInt(previousNumber) - parseInt(currentNumber);
 }
 
 function multiply(previousNumber, currentNumber) {
-  return previousNumber * currentNumber;
+  return parseInt(previousNumber) * parseInt(currentNumber);
 }
 
 function divide(previousNumber, currentNumber) {
-  return previousNumber * currentNumber;
+  return parseInt(previousNumber) * parseInt(currentNumber);
 }
 
 let previousNumber = '';
