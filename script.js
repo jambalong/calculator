@@ -1,10 +1,10 @@
 const emptyValue = '';
-const defaultValue = '0';
+const zeroValue = '0';
 const decimalPoint = '.';
 
-let currentOperator = emptyValue;
-let previousNumber = emptyValue;
-let currentNumber = emptyValue;
+let currentOperator = null;
+let previousNumber = null;
+let currentNumber = null;
 
 let previousEvaluation = false;
 
@@ -83,7 +83,7 @@ function handleNumberClick(event) {
   }
   
   if (clickedNumber == decimalPoint && currentNumber == emptyValue) {
-    currentNumber += defaultValue;
+    currentNumber += zeroValue;
     currentNumber += clickedNumber;
     updateDisplay();
   } else if (clickedNumber == decimalPoint && currentNumber.includes(decimalPoint)) {
@@ -111,6 +111,11 @@ function handleEqualsOperator(clickedOperator) {
   }
 
   previousEvaluation = true;
+
+  if (currentNumber == zeroValue) {
+    display.textContent = 'uwu';
+    initializeNumbers();
+  }
 
   const currentEvaluation = operate(currentOperator, previousNumber, currentNumber);
   
@@ -155,12 +160,9 @@ function handleFunctionKeys(event) {
 }
 
 function handleAllClear() {
-  previousNumber = emptyValue;
-  currentNumber = defaultValue;
-  currentOperator = emptyValue;
-
+  initializeNumbers();
+  currentNumber = zeroValue;
   updateDisplay();
-
   currentNumber = emptyValue;
 }
 
@@ -173,6 +175,14 @@ function handlePercent() {
   currentNumber = (currentNumber / 100).toString();
   updateDisplay();
 }
+
+function initializeNumbers(flag) {
+  currentOperator = emptyValue;
+  previousNumber = emptyValue;
+  currentNumber = emptyValue;
+}
+
+initializeNumbers();
 
 const numberKeys = document.querySelectorAll('#number-keys button');
 const operatorKeys = document.querySelectorAll('#operator-keys button');
