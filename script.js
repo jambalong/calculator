@@ -19,35 +19,19 @@ function isFloat(number) {
 }
 
 function add(previousNumber, currentNumber) {
-  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
-    return parseFloat(previousNumber) + parseFloat(currentNumber);
-  }
-
-  return parseInt(previousNumber) + parseInt(currentNumber);
+  return Number(previousNumber) + Number(currentNumber);
 }
 
 function subtract(previousNumber, currentNumber) {
-  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
-    return parseFloat(previousNumber) - parseFloat(currentNumber);
-  }
-
-  return parseInt(previousNumber) - parseInt(currentNumber);
+  return Number(previousNumber) - Number(currentNumber);
 }
 
 function multiply(previousNumber, currentNumber) {
-  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
-    return parseFloat(previousNumber) * parseFloat(currentNumber);
-  }
-
-  return parseInt(previousNumber) * parseInt(currentNumber);
+  return Number(previousNumber) * Number(currentNumber);
 }
 
 function divide(previousNumber, currentNumber) {
-  if (previousNumber.includes(decimalPoint) || currentNumber.includes(decimalPoint)) {
-    return parseFloat(previousNumber) / parseFloat(currentNumber);
-  }
-
-  return parseInt(previousNumber) / parseInt(currentNumber);
+  return Number(previousNumber) / Number(currentNumber);
 }
 
 function operate(currentOperator, previousNumber, currentNumber) {
@@ -70,14 +54,13 @@ function operate(currentOperator, previousNumber, currentNumber) {
 function updateDisplay() {
   const display = document.querySelector("#display");
   const displayValue = `${previousNumber} ${currentOperator} ${currentNumber} `;
-
   display.textContent = displayValue;
 }
 
 function handleNumberClick(event) {
   const clickedNumber = event.target.textContent;
 
-  if (previousEvaluation == true) {
+  if (previousEvaluation) {
     currentNumber = emptyValue;
     previousEvaluation = false;
   }
@@ -106,15 +89,17 @@ function handleOperatorClick(event) {
 }
 
 function handleEqualsOperator(clickedOperator) {
-  if (previousNumber.length == 0) {
+  if (previousNumber == emptyValue || currentNumber == emptyValue) {
     return;
   }
 
   previousEvaluation = true;
 
-  if (currentNumber == zeroValue) {
+  if (currentNumber == zeroValue && currentOperator == '/') {
     display.textContent = 'uwu';
     initializeNumbers();
+    currentNumber = zeroValue;
+    return;
   }
 
   const currentEvaluation = operate(currentOperator, previousNumber, currentNumber);
@@ -122,16 +107,16 @@ function handleEqualsOperator(clickedOperator) {
   currentOperator = emptyValue;
   previousNumber = emptyValue;
 
-  if (isFloat(currentEvaluation)) {
-    currentNumber = currentEvaluation.toFixed(2);
-  } else {
-    currentNumber = currentEvaluation.toFixed(0);
-  }
+  currentNumber = isFloat(currentEvaluation) ? currentEvaluation.toFixed(2) : currentEvaluation.toFixed(0);
   
   updateDisplay();
 }
 
 function handleNonEqualsOperator(clickedOperator) {
+  if (currentNumber == emptyValue && previousNumber == emptyValue) {
+    return;
+  }
+
   if (previousNumber.length == 0) {
     previousNumber = currentNumber;
     currentNumber = emptyValue;
@@ -183,20 +168,15 @@ function handleClearEntry() {
 
   previousEvaluation = false;
 
-  if (isPositive) {
-    currentEntry = currentEntry.substring(0, currentEntry.length - 1);
-  } else if (isNegative) {
+  if (isPositive || isNegative) {
     currentEntry = currentEntry.substring(0, currentEntry.length - 1);
   }
 
-  const isInvalid = currentEntry == '-';
-
-  if (currentEntry == emptyValue || isInvalid) {
+  if (currentEntry == emptyValue || currentEntry == '-') {
     currentEntry = zeroValue;
   }
 
   currentNumber = currentEntry;
-
   updateDisplay();
 
   if (currentNumber == zeroValue) {
@@ -217,16 +197,7 @@ const operatorKeys = document.querySelectorAll('#operator-keys button');
 const functionKeys = document.querySelectorAll('#function-keys button');
 const clearEntry = document.querySelector('#clear-entry');
 
-numberKeys.forEach(button => {
-  button.addEventListener('click', handleNumberClick);
-});
-
-operatorKeys.forEach(button => {
-  button.addEventListener('click', handleOperatorClick);
-})
-
-functionKeys.forEach(button => {
-  button.addEventListener('click', handleFunctionKeys);
-})
-
+numberKeys.forEach(button => button.addEventListener('click', handleNumberClick));
+operatorKeys.forEach(button => button.addEventListener('click', handleOperatorClick));
+functionKeys.forEach(button => button.addEventListener('click', handleFunctionKeys));
 clearEntry.addEventListener('click', handleClearEntry);
