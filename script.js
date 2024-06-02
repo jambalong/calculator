@@ -35,3 +35,10 @@ function operate(currentOperator, previousNumber, currentNumber) {
       break;
   }
 }
+
+function updateDisplay() {
+  const display = document.querySelector("#display");
+  const displayValue = `${previousNumber} ${currentOperator} ${currentNumber} `;
+
+  display.textContent = displayValue;
+}
