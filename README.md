@@ -4,7 +4,7 @@ This project is part of The Odin Project: [Calculator](https://www.theodinprojec
 
 It includes the four primary operations: addition, subtraction, multiplication, and division.
 
-Live Demo: https://jambalong.com/calculator/
+Live Demo: [https://jambalong.com/calculator/](http://jambalong.github.io/calculator/)
 
 ## Features
 
